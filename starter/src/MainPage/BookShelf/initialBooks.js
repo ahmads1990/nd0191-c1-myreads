@@ -1,9 +1,10 @@
-[
+const intialBooks = [
   {
     backgroundUrl:
       "http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api",
     title: "To Kill a Mockingbird",
     authors: ["Harper Lee"],
+    shelf: "currentlyReading",
   },
   {
     backgroundUrl:
@@ -11,6 +12,7 @@
 
     title: "Ender's Game",
     authors: "Orson Scott Card",
+    shelf: "wantToRead",
   },
   {
     backgroundUrl:
@@ -18,6 +20,7 @@
 
     title: 1776,
     authors: ["David McCullough"],
+    shelf: "read",
   },
   {
     backgroundUrl:
@@ -25,6 +28,7 @@
 
     title: "Harry Potter and the Sorcerer's Stone",
     authors: ["J.K. Rowling"],
+    shelf: "currentlyReading",
   },
   {
     backgroundUrl:
@@ -32,6 +36,7 @@
 
     title: "The Hobbit",
     authors: ["J.R.R. Tolkien"],
+    shelf: "read",
   },
 
   {
@@ -39,5 +44,6 @@
       "http://books.google.com/books/content?id=1q_xAwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE712CA0cBYP8VKbEcIVEuFJRdX1k30rjLM29Y-dw_qU1urEZ2cQ42La3Jkw6KmzMmXIoLTr50SWTpw6VOGq1leINsnTdLc_S5a5sn9Hao2t5YT7Ax1RqtQDiPNHIyXP46Rrw3aL8&source=gbs_api",
     title: " Oh, the Places You'll Go!",
     authors: ["Seuss"],
+    shelf: "read",
   },
 ];

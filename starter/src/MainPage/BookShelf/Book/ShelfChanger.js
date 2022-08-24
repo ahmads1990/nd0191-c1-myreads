@@ -8,6 +8,7 @@ export const ShelfChanger = ({ currentShelf, changeShelf }) => {
           onChange={(event) => {
             changeShelf(event.target.value);
           }}
+          defaultValue={currentShelf}
         >
           <option value="none" disabled>
             Move to...

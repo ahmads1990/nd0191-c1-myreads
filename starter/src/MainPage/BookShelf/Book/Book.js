@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { ShelfChanger } from "./ShelfChanger";
 
-export const Book = ({ title, authors, backgroundUrl }) => {
-  const [shelf, setShelf] = useState("none");
-  const changeShelf = (newShelf) => setShelf(newShelf);
-
+export const Book = ({ title, authors, backgroundUrl, index, intialShelf }) => {
+  const [shelf, setShelf] = useState(intialShelf);
+  const changeShelf = (e) => {
+    console.log(e);
+    setShelf(e);
+  };
   return (
-    <li>
+    <li key={index}>
+      {console.log("author log  " + authors)}
       <div className="book">
         <div className="book-top">
           <div
@@ -23,15 +26,16 @@ export const Book = ({ title, authors, backgroundUrl }) => {
           ></ShelfChanger>
         </div>
         {title != "" && <div className="book-title">{title}</div>}
-        {authors != [] && (
+        {authors.length != 0 && (
           <div className="book-authors">
-            {
-              <ol>
-                {authors.map((author) => {
-                  <li>author</li>;
-                })}
-              </ol>
-            }
+            {authors.map((author) => {
+              return (
+                <div>
+                  <span>{author}</span>
+                  <br></br>
+                </div>
+              );
+            })}
           </div>
         )}
       </div>

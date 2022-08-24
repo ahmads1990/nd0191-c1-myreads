@@ -2,16 +2,19 @@ import "./App.css";
 import { useState } from "react";
 import * as BooksApi from "./BooksAPI";
 import { useEffect } from "react";
+import { ListBooks } from "./MainPage/ListBooks";
+import { Book } from "./MainPage/BookShelf/Book/Book";
 function App() {
   const [showSearchPage, setShowSearchpage] = useState(false);
 
-  useEffect(() => {
+  /* useEffect(() => {
     const getAll = async () => {
       const res = await BooksApi.getAll();
       console.log(res);
     };
     getAll();
   }, []);
+*/
   return (
     <div className="app">
       {showSearchPage ? (
@@ -35,17 +38,8 @@ function App() {
           </div>
         </div>
       ) : (
-        <div className="list-books">
-          <div className="list-books-title">
-            <h1>MyReads</h1>
-          </div>
-          {console.log(BooksApi.getAll())}
-          <div className="list-books-content">
-            <div></div>
-          </div>
-          <div className="open-search">
-            <a onClick={() => setShowSearchpage(!showSearchPage)}>Add a book</a>
-          </div>
+        <div>
+          <ListBooks></ListBooks>
         </div>
       )}
     </div>
