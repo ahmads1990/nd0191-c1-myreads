@@ -1,11 +1,19 @@
 import React, { useState } from "react";
 import { ShelfChanger } from "./ShelfChanger";
 
-export const Book = ({ id, title, authors, backgroundUrl, index, intialShelf, changeBookShelf }) => {
+export const Book = ({
+  id,
+  title,
+  authors,
+  backgroundUrl,
+  index,
+  intialShelf,
+  changeBookShelf,
+}) => {
   const [shelf, setShelf] = useState(intialShelf);
   const changeShelf = (e) => {
     setShelf(e);
-    changeBookShelf({ id }, e)
+    changeBookShelf({ id }, e);
   };
   return (
     <li key={index}>
@@ -26,7 +34,7 @@ export const Book = ({ id, title, authors, backgroundUrl, index, intialShelf, ch
         </div>
         {title != "" && <div className="book-title">{title}</div>}
 
-        {(authors && authors.length != 0) && (
+        {Array.isArray(authors) && authors.length != 0 && (
           <div className="book-authors">
             {authors.map((author) => {
               return (
@@ -38,7 +46,6 @@ export const Book = ({ id, title, authors, backgroundUrl, index, intialShelf, ch
             })}
           </div>
         )}
-
       </div>
     </li>
   );

@@ -20,27 +20,33 @@ function App() {
   }, []);
 
   const updateListShelf = (book, shelf) => {
-    BooksApi.update(book, shelf)
-    setAllBooks(allBooks.map((target) => {
-      if (target.id === book.id) {
-        target.shelf = shelf
-      }
-      return target
-    }))
+    BooksApi.update(book, shelf);
+    setAllBooks(
+      allBooks.map((target) => {
+        if (target.id === book.id) {
+          target.shelf = shelf;
+        }
+        return target;
+      })
+    );
     console.log("update ");
     console.log(allBooks);
-  }
+  };
 
   return (
     <div className="app">
       <Routes>
-        <Route exact path="/" element={
-          <ListShelfs allBooks={allBooks} updateListShelf={updateListShelf}></ListShelfs>
-        } />
-        <Route path="/search" element={
-          <SearchPage></SearchPage>
-        }>
-        </Route>
+        <Route
+          exact
+          path="/"
+          element={
+            <ListShelfs
+              allBooks={allBooks}
+              updateListShelf={updateListShelf}
+            ></ListShelfs>
+          }
+        />
+        <Route path="/search" element={<SearchPage></SearchPage>}></Route>
       </Routes>
     </div>
   );

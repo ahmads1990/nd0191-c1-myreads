@@ -7,11 +7,12 @@ export const BookShelf = ({ books, title, shelf, updateListShelf }) => {
       {console.log("hahahaha ")}
       {console.log(books)}
       <div className="bookshelf">
-        <h2 className="bookshelf-title">{title}</h2>
+        {title !== "" && <h2 className="bookshelf-title">{title}</h2>}
         <div className="bookshelf-books">
           <ol className="books-grid">
             {books.map((book, index) => {
-              const url = ('imageLinks.thumbnail' in book) ? book.imageLinks.thumbnail : ''
+              const url =
+                "imageLinks.thumbnail" in book ? book.imageLinks.thumbnail : "";
               return (
                 <Book
                   id={book.id}
@@ -19,7 +20,7 @@ export const BookShelf = ({ books, title, shelf, updateListShelf }) => {
                   authors={book.authors}
                   backgroundUrl={url}
                   index={index}
-                  intialShelf={shelf}
+                  intialShelf={book.shelf}
                   changeBookShelf={updateListShelf}
                 ></Book>
               );
