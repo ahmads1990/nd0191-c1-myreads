@@ -2,46 +2,46 @@ import "./App.css";
 import { useState } from "react";
 import * as BooksApi from "./BooksAPI";
 import { useEffect } from "react";
-import { ListBooks } from "./MainPage/ListBooks";
-import { Book } from "./MainPage/BookShelf/Book/Book";
+import { ListShelfs } from "./MainPage/ListShelfs";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import { SearchPage } from "./SearchPage/SearchPage";
+
 function App() {
   const [showSearchPage, setShowSearchpage] = useState(false);
+  const [allBooks, setAllBooks] = useState([]);
 
-  /* useEffect(() => {
+  useEffect(() => {
     const getAll = async () => {
       const res = await BooksApi.getAll();
-      console.log(res);
+      setAllBooks(res);
     };
     getAll();
+    console.log(allBooks);
   }, []);
-*/
+
+  const updateListShelf = (book, shelf) => {
+    BooksApi.update(book, shelf)
+    setAllBooks(allBooks.map((target) => {
+      if (target.id === book.id) {
+        target.shelf = shelf
+      }
+      return target
+    }))
+    console.log("update ");
+    console.log(allBooks);
+  }
+
   return (
     <div className="app">
-      {showSearchPage ? (
-        <div className="search-books">
-          <div className="search-books-bar">
-            <a
-              className="close-search"
-              onClick={() => setShowSearchpage(!showSearchPage)}
-            >
-              Close
-            </a>
-            <div className="search-books-input-wrapper">
-              <input
-                type="text"
-                placeholder="Search by title, author, or ISBN"
-              />
-            </div>
-          </div>
-          <div className="search-books-results">
-            <ol className="books-grid"></ol>
-          </div>
-        </div>
-      ) : (
-        <div>
-          <ListBooks></ListBooks>
-        </div>
-      )}
+      <Routes>
+        <Route exact path="/" element={
+          <ListShelfs allBooks={allBooks} updateListShelf={updateListShelf}></ListShelfs>
+        } />
+        <Route path="/search" element={
+          <SearchPage></SearchPage>
+        }>
+        </Route>
+      </Routes>
     </div>
   );
 }

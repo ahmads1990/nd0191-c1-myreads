@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Book } from "./Book/Book";
 
-export const BookShelf = ({ books, title, shelf }) => {
+export const BookShelf = ({ books, title, shelf, updateListShelf }) => {
   return (
     <div>
       {console.log("hahahaha ")}
@@ -11,13 +11,16 @@ export const BookShelf = ({ books, title, shelf }) => {
         <div className="bookshelf-books">
           <ol className="books-grid">
             {books.map((book, index) => {
+              const url = ('imageLinks.thumbnail' in book) ? book.imageLinks.thumbnail : ''
               return (
                 <Book
+                  id={book.id}
                   title={book.title}
                   authors={book.authors}
-                  backgroundUrl={book.imageLinks.thumbnail}
+                  backgroundUrl={url}
                   index={index}
                   intialShelf={shelf}
+                  changeBookShelf={updateListShelf}
                 ></Book>
               );
             })}

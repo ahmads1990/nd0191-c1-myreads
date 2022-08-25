@@ -1,31 +1,20 @@
-import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { BookShelf } from "./BookShelf/BookShelf";
-import * as BooksApi from "../BooksAPI";
-export const ListBooks = () => {
-  const [allBooks, setAllBooks] = useState([]);
-  //console.log(intialBooks);
+
+export const ListShelfs = ({ allBooks, updateListShelf }) => {
+
   const shelfs = ["none", "currentlyReading", "wantToRead", "read"];
   var currentlyReading = [];
   var wantToRead = [];
   var read = [];
-
-  const addValue = (v, book) => [...v, book];
-  useEffect(() => {
-    const getAll = async () => {
-      const res = await BooksApi.getAll();
-      //console.log(res);
-      setAllBooks(res);
-    };
-    getAll();
-    console.log(allBooks);
-    sortBooksToShelfs(allBooks);
-  }, []);
 
   const sortBooksToShelfs = (intialBooks) => {
     currentlyReading = [];
     wantToRead = [];
     read = [];
     intialBooks.map((book) => {
+      console.log('9999999 ');
+      console.log(book);
       switch (book.shelf) {
         case shelfs[1]:
           currentlyReading.push(book);
@@ -41,17 +30,9 @@ export const ListBooks = () => {
       }
     });
   };
+
   sortBooksToShelfs(allBooks);
-  console.log("aayayaya" + allBooks);
-  /*console.log("intialBooks");
-  console.log(intialBooks);
-  console.log("currentlyReading");
-  console.log(currentlyReading);
-  console.log("wantToRead");
-  console.log(wantToRead);
-  console.log("read");
-  console.log(read);
-  */
+
   //onClick={() => setShowSearchpage(!showSearchPage)}
   return (
     <div className="list-books">
@@ -63,16 +44,19 @@ export const ListBooks = () => {
           books={currentlyReading}
           title={"Currently Reading"}
           shelf={shelfs[1]}
+          updateListShelf={updateListShelf}
         ></BookShelf>
         <BookShelf
           books={wantToRead}
           title={"Want to Read"}
           shelf={shelfs[2]}
+          updateListShelf={updateListShelf}
         ></BookShelf>
-        <BookShelf books={read} title={"Read"} shelf={shelfs[3]}></BookShelf>
+        <BookShelf books={read} title={"Read"} shelf={shelfs[3]}
+          updateListShelf={updateListShelf}></BookShelf>
       </div>
       <div className="open-search">
-        <a>Add a book</a>
+        <Link to={'/search'}>Add a book</Link>
       </div>
     </div>
   );
