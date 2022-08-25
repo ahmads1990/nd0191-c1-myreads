@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { ShelfChanger } from "./ShelfChanger";
+import PropTypes from "prop-types";
 
 export const Book = ({
   id,
   title,
   authors,
   backgroundUrl,
-  index,
   intialShelf,
   changeBookShelf,
 }) => {
@@ -16,7 +16,7 @@ export const Book = ({
     changeBookShelf({ id }, e);
   };
   return (
-    <li key={index}>
+    <li key={id}>
       <div className="book">
         <div className="book-top">
           <div
@@ -49,4 +49,13 @@ export const Book = ({
       </div>
     </li>
   );
+};
+
+Book.propTypes = {
+  id: PropTypes.any.isRequired,
+  title: PropTypes.string.isRequired,
+  authors: PropTypes.array.isRequired,
+  backgroundUrl: PropTypes.string.isRequired,
+  intialShelf: PropTypes.string.isRequired,
+  changeBookShelf: PropTypes.func.isRequired,
 };

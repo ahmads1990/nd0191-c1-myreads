@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 export const ShelfChanger = ({ currentShelf, changeShelf }) => {
   return (
@@ -21,4 +22,9 @@ export const ShelfChanger = ({ currentShelf, changeShelf }) => {
       </div>
     </div>
   );
+};
+
+ShelfChanger.propTypes = {
+  currentShelf: PropTypes.string.isRequired,
+  changeShelf: PropTypes.func.isRequired,
 };

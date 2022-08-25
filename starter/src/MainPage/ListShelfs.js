@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { BookShelf } from "./BookShelf/BookShelf";
+import PropTypes from "prop-types";
 
 export const ListShelfs = ({ allBooks, updateListShelf }) => {
-
   const shelfs = ["none", "currentlyReading", "wantToRead", "read"];
   var currentlyReading = [];
   var wantToRead = [];
@@ -13,12 +13,11 @@ export const ListShelfs = ({ allBooks, updateListShelf }) => {
     wantToRead = [];
     read = [];
     intialBooks.map((book) => {
-      console.log('9999999 ');
-      console.log(book);
+      //console.log(book);
       switch (book.shelf) {
         case shelfs[1]:
           currentlyReading.push(book);
-          console.log("test " + currentlyReading);
+          //console.log("test " + currentlyReading);
           break;
         case shelfs[2]:
           wantToRead.push(book);
@@ -43,21 +42,27 @@ export const ListShelfs = ({ allBooks, updateListShelf }) => {
         <BookShelf
           books={currentlyReading}
           title={"Currently Reading"}
-          shelf={shelfs[1]}
           updateListShelf={updateListShelf}
         ></BookShelf>
         <BookShelf
           books={wantToRead}
           title={"Want to Read"}
-          shelf={shelfs[2]}
           updateListShelf={updateListShelf}
         ></BookShelf>
-        <BookShelf books={read} title={"Read"} shelf={shelfs[3]}
-          updateListShelf={updateListShelf}></BookShelf>
+        <BookShelf
+          books={read}
+          title={"Read"}
+          updateListShelf={updateListShelf}
+        ></BookShelf>
       </div>
       <div className="open-search">
-        <Link to={'/search'}>Add a book</Link>
+        <Link to={"/search"}>Add a book</Link>
       </div>
     </div>
   );
+};
+
+ListShelfs.propTypes = {
+  allBooks: PropTypes.array.isRequired,
+  updateListShelf: PropTypes.func.isRequired,
 };
