@@ -7,7 +7,6 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import { SearchPage } from "./SearchPage/SearchPage";
 
 function App() {
-  const [showSearchPage, setShowSearchpage] = useState(false);
   const [allBooks, setAllBooks] = useState([]);
 
   useEffect(() => {
@@ -22,12 +21,17 @@ function App() {
   const updateListShelf = (book, shelf) => {
     BooksApi.update(book, shelf);
     setAllBooks(
-      allBooks.map((target) => {
-        if (target.id === book.id) {
-          target.shelf = shelf;
-        }
-        return target;
-      })
+      //if the changed into shelf is none delete the book from allbooks state
+      shelf == 'none' ? allBooks.filter((target) => target.id != book) :
+        //else if the book shelf is none its new to all books then add it
+        book.shelf == 'none' ? allBooks.concat([book]) :
+          //else its in the all books state just update it
+          allBooks.map((target) => {
+            if (target.id === book.id) {
+              target.shelf = shelf;
+            }
+            return target;
+          })
     );
     console.log("update ");
     console.log(allBooks);
@@ -46,7 +50,7 @@ function App() {
             ></ListShelfs>
           }
         />
-        <Route path="/search" element={<SearchPage></SearchPage>}></Route>
+        <Route path="/search" element={<SearchPage addNewBook={updateListShelf}></SearchPage>}></Route>
       </Routes>
     </div>
   );

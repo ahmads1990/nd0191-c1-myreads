@@ -12,7 +12,10 @@ export const BookShelf = ({ books, title, shelf, updateListShelf }) => {
           <ol className="books-grid">
             {books.map((book, index) => {
               const url =
-                "imageLinks.thumbnail" in book ? book.imageLinks.thumbnail : "";
+                "imageLinks" in book ?
+                  "thumbnail" in book.imageLinks ?
+                    book.imageLinks.thumbnail : ""
+                  : ""
               return (
                 <Book
                   id={book.id}

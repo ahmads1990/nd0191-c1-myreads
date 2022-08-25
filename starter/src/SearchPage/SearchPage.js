@@ -3,13 +3,15 @@ import { Link, useNavigate } from "react-router-dom";
 import * as BooksApi from "../BooksAPI";
 import { useEffect } from "react";
 import { Book } from "../MainPage/BookShelf/Book/Book";
-export const SearchPage = () => {
+
+export const SearchPage = ({ addNewBook }) => {
+  const maxQuery = 30
   const [query, setQuery] = useState("");
   const [searchBooks, setSearchBooks] = useState([]);
 
   useEffect(() => {
     const getAll = async () => {
-      const res = await BooksApi.search(query, 20);
+      const res = await BooksApi.search(query, maxQuery);
       console.log(res);
       setSearchBooks(res);
     };
@@ -35,9 +37,12 @@ export const SearchPage = () => {
       </div>
       <div className="search-books-results">
         <ol className="books-grid">
-          {searchBooks.map((book, index) => {
+          {Array.isArray(searchBooks) && (searchBooks.map((book, index) => {
             const url =
-              "imageLinks.thumbnail" in book ? book.imageLinks.thumbnail : "";
+              "imageLinks" in book ?
+                "thumbnail" in book.imageLinks ?
+                  book.imageLinks.thumbnail : ""
+                : ""
             return (
               <Book
                 id={book.id}
@@ -46,10 +51,11 @@ export const SearchPage = () => {
                 backgroundUrl={url}
                 index={index}
                 intialShelf={book.shelf}
-                changeBookShelf={() => {}}
+                changeBookShelf={addNewBook}
               ></Book>
             );
-          })}
+          })
+          )}
         </ol>
       </div>
     </div>
