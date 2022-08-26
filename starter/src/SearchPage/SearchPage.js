@@ -15,17 +15,22 @@ export const SearchPage = ({ mainBooks, addNewBook }) => {
       const res = await BooksApi.search(query, maxQuery);
       //console.log(res);
       //search the query books if one of them is on the main shelf update its state
-      mainBooks.map((myBook) =>
-        res.map((target) =>
-          target.id === myBook.id ? (target.shelf = myBook.shelf) : target
-        )
-      );
+
+      if (Array.isArray(res)) {
+        res.map((queryBook) => {
+          queryBook.shelf = 'none'
+          return mainBooks.map((book) => {
+            if (queryBook.id === book.id) queryBook.shelf = book.shelf
+            return queryBook
+          })
+        })
+      }
       setSearchBooks(res);
     };
     //
-    if (query != "") {
+    if (query !== "") {
       getAll();
-    }
+    } else { setSearchBooks([]) }
     //console.log(searchBooks);
   }, [query]);
   return (
@@ -55,11 +60,11 @@ export const SearchPage = ({ mainBooks, addNewBook }) => {
                   : "";
               return (
                 <Book
+                  key={book.id}
                   id={book.id}
                   title={book.title}
                   authors={book.authors}
                   backgroundUrl={url}
-                  index={index}
                   intialShelf={book.shelf}
                   changeBookShelf={addNewBook}
                 ></Book>

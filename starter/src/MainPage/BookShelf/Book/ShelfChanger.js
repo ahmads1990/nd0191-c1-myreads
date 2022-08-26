@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 export const ShelfChanger = ({ currentShelf, changeShelf }) => {
+  const shelves = [
+    { id: '0', shelfName: 'currentlyReading', shelfDisplayName: 'Currently Reading' },
+    { id: '1', shelfName: 'wantToRead', shelfDisplayName: 'Want to Read' },
+    { id: '2', shelfName: 'read', shelfDisplayName: 'Read' },
+    { id: '3', shelfName: 'none', shelfDisplayName: 'None' },]
   return (
     <div>
       <div className="book-shelf-changer">
@@ -11,13 +16,10 @@ export const ShelfChanger = ({ currentShelf, changeShelf }) => {
           }}
           defaultValue={currentShelf}
         >
-          <option value="none" disabled>
+          <option disabled>
             Move to...
           </option>
-          <option value="currentlyReading">Currently Reading</option>
-          <option value="wantToRead">Want to Read</option>
-          <option value="read">Read</option>
-          <option value="none">None</option>
+          {shelves.map((shelve) => <option key={shelve.id} value={shelve.shelfName}>{shelve.shelfDisplayName}</option>)}
         </select>
       </div>
     </div>

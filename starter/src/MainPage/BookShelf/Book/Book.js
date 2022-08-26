@@ -15,8 +15,9 @@ export const Book = ({
     setShelf(e);
     changeBookShelf({ id }, e);
   };
+  //console.log("testing book id " + id);
   return (
-    <li key={id}>
+    <li>
       <div className="book">
         <div className="book-top">
           <div
@@ -36,9 +37,9 @@ export const Book = ({
 
         {Array.isArray(authors) && authors.length != 0 && (
           <div className="book-authors">
-            {authors.map((author) => {
+            {authors.map((author, index) => {
               return (
-                <div>
+                <div key={index}>
                   <span>{author}</span>
                   <br></br>
                 </div>
@@ -54,7 +55,7 @@ export const Book = ({
 Book.propTypes = {
   id: PropTypes.any.isRequired,
   title: PropTypes.string.isRequired,
-  authors: PropTypes.array.isRequired,
+  authors: PropTypes.array,
   backgroundUrl: PropTypes.string.isRequired,
   intialShelf: PropTypes.string.isRequired,
   changeBookShelf: PropTypes.func.isRequired,
